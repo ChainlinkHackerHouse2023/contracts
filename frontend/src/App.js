@@ -7,6 +7,20 @@ Modal.setAppElement("#root"); // for accessibility
 const App = () => {
   const [isOpen] = useState(true);
 
+  const [fromChain, setFromChain] = useState(null);
+  const [toChain, setToChain] = useState(null);
+
+  const allOptions = [
+    { label: "Ethereum Mainnet", value: "Ethereum Mainnet" },
+    { label: "Polygon", value: "Polygon" },
+    { label: "Arbitrum", value: "Arbitrum" },
+    { label: "Avalanche", value: "Avalanche" },
+    { label: "Optimism", value: "Optimism" },
+  ];
+
+  const fromOptions = allOptions.filter((option) => option !== toChain);
+  const toOptions = allOptions.filter((option) => option !== fromChain);
+
   const handleTransaction = () => {
     console.log("Transaction started");
   };
@@ -16,7 +30,10 @@ const App = () => {
   };
 
   return (
-    <div>
+    <div className="bg-[#131313] min-h-screen">
+      <header className="p-4 z-10">
+        <img src="/images/logo.png" alt="Header logo" className="h-16" />
+      </header>
       <Modal
         isOpen={isOpen}
         contentLabel="Crypto and Chain Modal"
@@ -29,6 +46,11 @@ const App = () => {
             backgroundColor: "#131313",
             borderRadius: "10px",
             height: "450px",
+            boxShadow:
+              "rgb(170 21 197 / 30%) 0 0 10px 0, rgb(170 21 197 / 30%) 0 40px 120px 0",
+          },
+          overlay: {
+            backgroundColor: "rgba(255, 255, 255, 0.75)", // This is for testing purposes
           },
         }}
       >
@@ -36,24 +58,24 @@ const App = () => {
         <CustomField
           type="dropdown"
           label="From"
-          options={[
-            { label: "Ethereum Mainnet", value: "Ethereum Mainnet" },
-            { label: "Polygon", value: "Polygon" },
-            // ... more options
-          ]}
-          onChange={(e) => console.log("Switch From:", e.target.value)}
+          options={fromOptions}
+          value={fromChain}
+          onChange={(e) => {
+            setFromChain(e.target.value);
+            console.log("Switch From:", e.target.value);
+          }}
         />
 
         {/* Chain Switch To */}
         <CustomField
           type="dropdown"
           label="To"
-          options={[
-            { label: "Ethereum Mainnet", value: "Ethereum Mainnet" },
-            { label: "Polygon", value: "Polygon" },
-            // ... more options
-          ]}
-          onChange={(e) => console.log("Switch To:", e.target.value)}
+          options={toOptions}
+          value={toChain}
+          onChange={(e) => {
+            setToChain(e.target.value);
+            console.log("Switch To:", e.target.value);
+          }}
         />
 
         {/* Token */}
