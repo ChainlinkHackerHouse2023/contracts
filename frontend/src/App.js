@@ -83,8 +83,11 @@ const App = () => {
           type="dropdown"
           label="Token"
           options={[
-            { label: "MNT", value: "MNT" },
-            { label: "ETH", value: "ETH" },
+            { label: "MKR", value: "MKR" },
+            { label: "LINK", value: "LINK" },
+            { label: "UNI", value: "UNI" },
+            { label: "AAVE", value: "AAVE" },
+            { label: "USDC", value: "USDC" },
           ]}
           onChange={(e) => console.log("Token:", e.target.value)}
         />
